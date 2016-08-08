@@ -1,0 +1,16 @@
+{
+    "name": "ry/medias",
+    "description": "mediabilite laravel5 avec support resize par url et caches",
+    "type": "laravel 5, php",
+    "authors": [
+        {
+            "name": "Landr Kotoarivelo",
+            "email": "landr@topmora.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    	"gregwar/image": "^2.0",
+    	"sybio/image-workshop": "^2.0"
+    }
+}
