@@ -16,12 +16,11 @@ class RyServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
     	parent::boot($router);
-    	
     	/*
     	$this->publishes([    			
     			__DIR__.'/../config/rymedias.php' => config_path('rymedias.php')
     	], "config");  
-    	
+
     	$this->mergeConfigFrom(
 	        	__DIR__.'/../config/rymedias.php', 'rymedias'
 	    );
@@ -34,7 +33,7 @@ class RyServiceProvider extends ServiceProvider
     	//ressources
     	$this->loadViewsFrom(__DIR__.'/../ressources/views', 'rymedias');
     	$this->loadTranslationsFrom(__DIR__.'/../ressources/lang', 'rymedias');
-    	
+
     	/*
     	$this->publishes([
     			__DIR__.'/../ressources/views' => resource_path('views/vendor/rymedias'),
@@ -55,11 +54,10 @@ class RyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
-    
     public function map(Router $router)
-    {
+    {    	
     	if (! $this->app->routesAreCached()) {
     		$router->group(['namespace' => 'Ry\Medias\Http\Controllers'], function(){
     			require __DIR__.'/../Http/routes.php';

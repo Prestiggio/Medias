@@ -8,9 +8,13 @@
             "email": "landr@topmora.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
     	"gregwar/image": "^2.0",
     	"sybio/image-workshop": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ry\\Medias\\": "src/"
+        }
     }
 }
