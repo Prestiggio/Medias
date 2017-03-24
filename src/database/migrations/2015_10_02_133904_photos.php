@@ -12,7 +12,7 @@ class Photos extends Migration
      */
     public function up()
     {
-        Schema::create('medias', function (Blueprint $table) {
+        Schema::create('ry_medias_medias', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("owner_id", false, true); //user owner
             $table->string('title')->nullable();
@@ -33,6 +33,6 @@ class Photos extends Migration
      */
     public function down()
     {
-        Schema::drop('medias');
+        Schema::drop('ry_medias_medias');
     }
 }

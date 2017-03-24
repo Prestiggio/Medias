@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model
 {
-    protected $table = "medias";
+    protected $table = "ry_medias_medias";
 
     protected $visible = ["title", "descriptif", "path", "type", "id", "contrast", "height", "url"];
 

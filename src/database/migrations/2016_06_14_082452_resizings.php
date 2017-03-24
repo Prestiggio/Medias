@@ -12,7 +12,7 @@ class Resizings extends Migration
      */
     public function up()
     {
-        Schema::create('resizings', function (Blueprint $table) {
+        Schema::create('ry_medias_resizings', function (Blueprint $table) {
             $table->increments('id');
             $table->char("filename");
             $table->char("type", 10);
@@ -29,6 +29,6 @@ class Resizings extends Migration
      */
     public function down()
     {
-        Schema::drop('resizings');
+        Schema::drop('ry_medias_resizings');
     }
 }
