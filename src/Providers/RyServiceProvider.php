@@ -2,8 +2,7 @@
 
 namespace Ry\Medias\Providers;
 
-//use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
 
 class RyServiceProvider extends ServiceProvider
@@ -13,9 +12,9 @@ class RyServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot()
     {
-    	parent::boot($router);
+    	parent::boot();
     	/*
     	$this->publishes([    			
     			__DIR__.'/../config/rymedias.php' => config_path('rymedias.php')
@@ -45,6 +44,10 @@ class RyServiceProvider extends ServiceProvider
     			__DIR__.'/../database/factories/' => database_path('factories'),
 	        	__DIR__.'/../database/migrations/' => database_path('migrations')
 	    ], 'migrations');
+    	
+    	//$this->app->register(\Ry\Socin\Providers\RyServiceProvider::class);
+    	
+    	$this->map();
     }
 
     /**
@@ -56,10 +59,10 @@ class RyServiceProvider extends ServiceProvider
     {
 
     }
-    public function map(Router $router)
+    public function map()
     {    	
     	if (! $this->app->routesAreCached()) {
-    		$router->group(['namespace' => 'Ry\Medias\Http\Controllers'], function(){
+    		$this->app['router']->group(['namespace' => 'Ry\Medias\Http\Controllers'], function(){
     			require __DIR__.'/../Http/routes.php';
     		});
     	}
