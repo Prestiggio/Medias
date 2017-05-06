@@ -3,14 +3,17 @@
 namespace Ry\Medias\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Facebook\Facebook;
 
 class Media extends Model
 {
     protected $table = "ry_medias_medias";
 
-    protected $visible = ["title", "descriptif", "path", "type", "id", "contrast", "height", "url"];
+    protected $visible = ["title", "descriptif", "type", "id", "contrast", "height", "url", "fullpath"];
 
-    protected $appends = ["contrast", "url"];
+    protected $appends = ["contrast", "url", "fullpath"];
+    
+    private static $fbAccessToken;
     
     public function mediable() {
     	return $this->morphTo();
@@ -43,6 +46,29 @@ class Media extends Model
     public function getUrlAttribute() {
     	if(preg_match("/^https?:\/\//i", $this->path))
     		return $this->path;
+    	return url("uploads/" . $this->path);
+    }
+    
+    private function fbAccessToken() {
+    	if(!self::$fbAccessToken) {
+    		$fb = new Facebook([
+    				'app_id' => "691462271025098",
+    				"app_secret" => "635f60e1510231ea5bb5cae9a3f60b47",
+    				"default_graph_version" => "v2.8"
+    		]);
+    		self::$fbAccessToken = $fb->getDefaultAccessToken()->getValue();
+    	}
+    	
+    	return self::$fbAccessToken;
+    }
+    
+    public function getFullpathAttribute() {
+    	if(preg_match("/^https:\/\//i", $this->path)) {
+    		if(preg_match("/^https:\/\/graph\.facebook\.com\/\d+\/picture\/?$", $this->path)) {
+    			$this->path .= '?access_token=' . $this->fbAccessToken();
+    		}
+    		return $this->path;
+    	}
     	return url("uploads/" . $this->path);
     }
 }
