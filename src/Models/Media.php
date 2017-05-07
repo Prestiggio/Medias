@@ -56,7 +56,7 @@ class Media extends Model
     				"app_secret" => "635f60e1510231ea5bb5cae9a3f60b47",
     				"default_graph_version" => "v2.8"
     		]);
-    		self::$fbAccessToken = $fb->getDefaultAccessToken()->getValue();
+    		self::$fbAccessToken = "691462271025098|XUAEe8dph6vurtkHnif5uOP5BeA";
     	}
     	
     	return self::$fbAccessToken;
