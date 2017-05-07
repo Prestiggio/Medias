@@ -45,7 +45,7 @@ class RyServiceProvider extends ServiceProvider
 	        	__DIR__.'/../database/migrations/' => database_path('migrations')
 	    ], 'migrations');
     	
-    	//$this->app->register(\Ry\Socin\Providers\RyServiceProvider::class);
+    	$this->app->register(\Ry\Socin\Providers\RyServiceProvider::class);
     	
     	$this->map();
     }

@@ -38,8 +38,8 @@ class PublicJsonController extends Controller
 					"app_secret" => "635f60e1510231ea5bb5cae9a3f60b47",
 					"default_graph_version" => "v2.8"
 			]);
-			$fb->setDefaultAccessToken("EAAJ04ZAsKP8oBAIvKr5TBXvMUMcsgOb9gqRAkZAQQ2QQWNUJ3g9ZA9ZAGFGEIs12gZBzCas46d7dgcxiuZBkw796RnwpC82hLMpcMBtGIgksp7zcCSswW3RN1NEdbFSVxBasuPVEOuP37Fmw4MiNyzBFeV4X0N9hBorI5gpQXwAtwtn9ZCPO29rFiyovbOZCz9YZD");
-			$fbrequest = $fb->request('POST', '/541064206085755/photos', [
+			$fb->setDefaultAccessToken("EAAJ04ZAsKP8oBAKQarl45YfjQe9Sx3u9mW5zBcSdpB1zyglcqWav1OmpP7fWCRkwR1A1Qx4ZAozYF29S6q13k2dYZCkjHxxgbyCY53aZBdzHKy9PZAHGZCobqf4DuGWZCa11IdZAFq6vDFKAYrET6nbTtWwB3clPKDoZD");
+			$fbrequest = $fb->request('POST', '/1474478132614878/photos', [
 					"message" => "Uploaded photo",
 					"source" => $fb->fileToUpload($file->getPathname())
 			]);
