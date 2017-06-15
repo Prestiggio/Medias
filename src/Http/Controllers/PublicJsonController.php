@@ -32,7 +32,7 @@ class PublicJsonController extends Controller
 		 -F "description[gugus]=dffgg"
 		*/
 	
-		try {
+		/*try {
 			$fb = new Facebook([
 					'app_id' => "691462271025098",
 					"app_secret" => "635f60e1510231ea5bb5cae9a3f60b47",
@@ -46,10 +46,10 @@ class PublicJsonController extends Controller
 			$response = $fb->getClient()->sendRequest($fbrequest)->getGraphNode();
 			$path = "https://graph.facebook.com/" . $response->getField("id", 666834146842093) . "/picture";
 		}
-		catch(\Exception $e) {
+		catch(\Exception $e) {*/
 			$path = time() . "-" . $file->getClientOriginalName();
 			$file->move(public_path("uploads"), $path);
-		}
+		//}
 		
 		Media::unguard();
 		

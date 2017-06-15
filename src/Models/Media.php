@@ -9,7 +9,7 @@ class Media extends Model
 {
     protected $table = "ry_medias_medias";
 
-    protected $visible = ["title", "descriptif", "type", "id", "contrast", "height", "url", "fullpath"];
+    protected $visible = ["title", "descriptif", "type", "id", "contrast", "height", "url", "fullpath", "path"];
 
     protected $appends = ["contrast", "url", "fullpath"];
     
