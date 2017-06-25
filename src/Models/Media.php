@@ -65,7 +65,7 @@ class Media extends Model
     }
     
     public function getFullpathAttribute() {
-    	if(preg_match("/^https:\/\//i", $this->path)) {
+    	if(preg_match("/^https?:\/\//i", $this->path)) {
     		if(preg_match("/^https:\/\/graph\.facebook\.com\/\d+\/picture\/?$/i", $this->path)) {
     			$this->path .= '?access_token=' . $this->fbAccessToken();
     		}
