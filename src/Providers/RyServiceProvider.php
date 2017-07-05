@@ -60,7 +60,8 @@ class RyServiceProvider extends ServiceProvider
 
     }
     public function map()
-    {    	
+    {   
+    	$this->app['router']->model('media', "\Ry\Medias\Models\Media");
     	if (! $this->app->routesAreCached()) {
     		$this->app['router']->group(['namespace' => 'Ry\Medias\Http\Controllers'], function(){
     			require __DIR__.'/../Http/routes.php';

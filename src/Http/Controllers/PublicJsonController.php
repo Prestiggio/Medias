@@ -12,11 +12,37 @@ use PHPImageWorkshop\ImageWorkshop;
 use Gregwar\Image\Image;
 use Facebook\Facebook;
 use Facebook\GraphNodes\GraphObject;
+use Illuminate\Support\Facades\Log;
+
+use Illuminate\Filesystem\Filesystem;
 
 class PublicJsonController extends Controller
 {
 	public function getIndex() {
 		return Auth::user();
+	}
+	
+	public function publish($media) {
+		if(!preg_match("/^https?:\/\//i", $media->path)) {
+			$fb = new Facebook([
+					'app_id' => "691462271025098",
+					"app_secret" => "635f60e1510231ea5bb5cae9a3f60b47",
+					"default_graph_version" => "v2.8"
+			]);
+			$fb->setDefaultAccessToken("EAAJ04ZAsKP8oBALZBrEz3esv45Ch4pZC8BbfwSrW21oszL7qB5B5DpQezZBt4sulOHx1ofpHH3RNzMtf3Ti8GS6pOmZCvLsmIeYrKJ1aIewNGQUIBxUEWwyvQvoapoenfjTpJb7zKhMUpXo5QV2LUIMMZBOROqO9CNmzgC2rcMbwZDZD");
+			$fbrequest = $fb->request('POST', '/1464752153547049/photos', [
+					"message" => $media->title,
+					"source" => $fb->fileToUpload(public_path("uploads/" . $media->path))
+			]);
+			$response = $fb->getClient()->sendRequest($fbrequest)->getGraphNode();
+			$path = "https://graph.facebook.com/" . $response->getField("id", 666834146842093) . "/picture";
+			
+			$fs = new Filesystem();
+			$fs->delete(public_path("uploads/" . $media->path));
+			
+			$media->path = $path;
+			$media->save();
+		}
 	}
 	
 	public function postSave(Request $request) {		
@@ -38,9 +64,9 @@ class PublicJsonController extends Controller
 					"app_secret" => "635f60e1510231ea5bb5cae9a3f60b47",
 					"default_graph_version" => "v2.8"
 			]);
-			$fb->setDefaultAccessToken("EAAJ04ZAsKP8oBAIlVzjlHudr5rF7Sex2PdcdLWvau7KK9ZAcCwiv5ZBKLjBdJbOnhun2I6PZBwSGYZC39A28Ekd3RuSb1PJcmRZB1dNOaiNrimEWaPQy4dFWjjnXF4cS3F6tchqS9j1RqSwLnZBbIUw7gHf98VZCA2QjVehNiF3gfgZDZD");
+			$fb->setDefaultAccessToken("EAAJ04ZAsKP8oBALZBrEz3esv45Ch4pZC8BbfwSrW21oszL7qB5B5DpQezZBt4sulOHx1ofpHH3RNzMtf3Ti8GS6pOmZCvLsmIeYrKJ1aIewNGQUIBxUEWwyvQvoapoenfjTpJb7zKhMUpXo5QV2LUIMMZBOROqO9CNmzgC2rcMbwZDZD");
 			$fbrequest = $fb->request('POST', '/1464752153547049/photos', [
-					"message" => "Uploaded photo",
+					"message" => "Nouveauté sur Kipa",
 					"source" => $fb->fileToUpload($file->getPathname())
 			]);
 			$response = $fb->getClient()->sendRequest($fbrequest)->getGraphNode();
