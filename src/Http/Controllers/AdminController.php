@@ -3,6 +3,7 @@ namespace Ry\Medias\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\Model;
 
 class AdminController extends Controller
 {
@@ -11,6 +12,7 @@ class AdminController extends Controller
 	}
 	
 	public function putMedias(&$mediable, $ar, $maincolumn=null) {
+		Model::unguard ();
 		foreach ( $ar ["medias"] as $media ) {
 			if (isset ( $media ["path"] ) && $media ["path"] != "") {
 				if(isset($media["id"])) { //cas uploaded ou update
@@ -44,7 +46,8 @@ class AdminController extends Controller
 					$mediable->save ();
 				}
 			}
-		}		
+		}
+		Model::reguard ();
 	}
 }
 
