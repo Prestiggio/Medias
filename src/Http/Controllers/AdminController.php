@@ -13,14 +13,24 @@ class AdminController extends Controller
 	public function putMedias(&$mediable, $ar, $maincolumn=null) {
 		foreach ( $ar ["medias"] as $media ) {
 			if (isset ( $media ["path"] ) && $media ["path"] != "") {
-				$m = $mediable->medias ()->where("id", "=", $media["id"])->first();
-				if(!$m) {
+				if(isset($media["id"])) { //cas uploaded ou update
+					$m = $mediable->medias ()->where("id", "=", $media["id"])->first();
+					if(!$m) {
+						$m = $mediable->medias ()->create ( [
+								"path" => $media ["path"],
+								"mediable_type" => Immobilier::class,
+								"mediable_id" => $mediable->id
+						] );
+					}
+				}
+				else { //cas facebook pick
 					$m = $mediable->medias ()->create ( [
 							"path" => $media ["path"],
 							"mediable_type" => Immobilier::class,
 							"mediable_id" => $mediable->id
 					] );
 				}
+				
 		
 				if(isset($media["deleted"])) {
 					if(!preg_match("/^https?:\/\//i", $m->path)) {
