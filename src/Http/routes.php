@@ -2,6 +2,9 @@
 Route::get("ry/medias/ngmodel", function(){
 	return view("rymedias::ngmodel");
 });
+Route::get("ry/medias/upload-simple", function(){
+	return view("rymedias::simple");
+});
 Route::get("ry/medias/upload", function(){
 	return view("rymedias::upload");
 });

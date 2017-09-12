@@ -36,21 +36,25 @@
 		};
 	};
 	
-	angular.module("rymedias", ["ngApp", "angularFileUpload"]).provider("$rymedias", function $rymediasProvider(){
+	angular.module("ngRyMedia", ["ngApp", "angularFileUpload"]).provider("$rymedias", function $rymediasProvider(){
 		
+		this.$get = function(){
+			return new UploadService({});
+		};
 		
-		
-	}).directive("upload", function(){
+	}).directive("ryupload", ["$rymedias", "FileUploader", "$rootScope", function($app, FileUploader, $rootScope){
 		return {
 			restrict : "A",
 			require : "ngModel",
 			scope : {
 				data : "=ngModel"
 			},
-			controller : ["$scope", "$appSetup", function($scope, $app){
+			controller : ["$scope", function(scope){
+				$app.initUploader(FileUploader);
+				
 				$app.uploader.autoUpload = true;
 				$app.uploader.onCompleteItem = function(item, response){
-					$scope.data.push(response);
+					scope.data.push(response);
 				};
 				$app.uploader.onAfterAddingFile = function(item){
 					var data = item.file;
@@ -58,14 +62,16 @@
 					item.formData = [data];
 				};
 				
+				/*
 				if(upload) {
 					input[k].item.uploader = {
 						formData : [input[k].item]
 					};
 				}
+				*/
 			}]
 		};
-	}).directive('ngThumb', function(){
+	}]).directive('ngThumb', function(){
 		return {
 			restrict: 'A',
             link: function(scope, element, attributes) {
