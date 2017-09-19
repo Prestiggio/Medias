@@ -22,6 +22,6 @@
 		</md-grid-tile>
 	</md-grid-list>
 	<md-input-container>
-		<input type="file" name="file" aria-label="Ajouter des photos" nv-file-select uploader="data.uploader" filters="allmedias" required/>
+		<input type="file" name="file" aria-label="Ajouter des photos" nv-file-select uploader="data.uploader" filters="filesizelimit"/>
 	</md-input-container>	
 </div>

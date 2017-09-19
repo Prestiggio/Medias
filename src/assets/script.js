@@ -30,6 +30,11 @@
 						fn : function(item){
 							return item.type.startsWith("image/") || item.type.startsWith("video/");
 						}
+					},{
+						name : "filesizelimit",
+						fn : function(item){
+							return item.size < 2000000;
+						}
 					}]
 				});
 			}
