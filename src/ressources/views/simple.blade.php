@@ -20,8 +20,17 @@
 		        <md-button ng-click="item.remove()" ng-disabled="item.isUploaded">Supprimer</md-button>
 			</md-grid-tile-footer>
 		</md-grid-tile>
+		<md-grid-tile ng-if="data.id>0" md-rowspan="1"
+			                  md-colspan="1"
+			                  md-colspan-sm="1"
+			                  md-colspan-xs="1"
+			                  style="background: #000;">
+      		<md-grid-tile-header><h3>@{{ data.title }}</h3>
+      		</md-grid-tile-header>
+      		<img ng-src="@{{data.fullpath}}" style="max-width: 100%; max-height:100%; "/>
+		</md-grid-tile>
 	</md-grid-list>
 	<md-input-container>
 		<input type="file" name="file" aria-label="Ajouter des photos" nv-file-select uploader="data.uploader" filters="filesizelimit"/>
-	</md-input-container>	
+	</md-input-container>
 </div>
