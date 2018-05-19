@@ -4,6 +4,7 @@ namespace Ry\Medias\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
+use Ry\Medias\Models\Media;
 
 class AdminController extends Controller
 {
@@ -12,7 +13,7 @@ class AdminController extends Controller
 	}
 	
 	public function putMedias(&$mediable, $ar, $maincolumn=null) {
-		Model::unguard ();
+		Media::unguard();
 		foreach ( $ar ["medias"] as $media ) {
 			if (isset ( $media ["path"] ) && $media ["path"] != "") {
 				if(isset($media["id"])) { //cas uploaded ou update
@@ -20,7 +21,7 @@ class AdminController extends Controller
 					if(!$m) {
 						$m = $mediable->medias ()->create ( [
 								"path" => $media ["path"],
-								"mediable_type" => Immobilier::class,
+								"mediable_type" => get_class($mediable),
 								"mediable_id" => $mediable->id
 						] );
 					}
@@ -28,12 +29,10 @@ class AdminController extends Controller
 				else { //cas facebook pick
 					$m = $mediable->medias ()->create ( [
 							"path" => $media ["path"],
-							"mediable_type" => Immobilier::class,
+							"mediable_type" => get_class($mediable),
 							"mediable_id" => $mediable->id
 					] );
-				}
-				
-		
+				}		
 				if(isset($media["deleted"])) {
 					if(!preg_match("/^https?:\/\//i", $m->path)) {
 						$fs = new Filesystem();
@@ -47,7 +46,7 @@ class AdminController extends Controller
 				}
 			}
 		}
-		Model::reguard ();
+		Media::reguard();
 	}
 }
 
