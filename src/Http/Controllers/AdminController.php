@@ -36,7 +36,7 @@ class AdminController extends Controller
 				if(isset($media["deleted"])) {
 					if(!preg_match("/^https?:\/\//i", $m->path)) {
 						$fs = new Filesystem();
-						$fs->delete(public_path("uploads/" . $m->path));
+						$fs->delete(public_path($m->path));
 					}
 					$m->delete();
 				}

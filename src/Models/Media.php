@@ -48,7 +48,7 @@ class Media extends Model
     public function getUrlAttribute() {
     	if(preg_match("/^https?:\/\//i", $this->path))
     		return $this->path;
-    	return url("uploads/" . $this->path);
+    	return url($this->path);
     }
     
     private function fbAccessToken() {
@@ -71,6 +71,6 @@ class Media extends Model
     		}
     		return $this->path;
     	}
-    	return url("uploads/" . $this->path);
+    	return url($this->path);
     }
 }

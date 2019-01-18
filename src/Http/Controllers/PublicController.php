@@ -20,7 +20,7 @@ class PublicController extends Controller
 			$query->orWhere("height", "=", $square);
 		})->orderBy("width", "DESC")->take(1)->get();
 		if($resizing->count()==0) {
-			$image = ImageWorkshop::initFromPath(public_path("uploads/$filename"), true);
+			$image = ImageWorkshop::initFromPath(public_path($filename), true);
 			$image->resizeToFit($square, $square, true);
 			$image->save(storage_path("app/$square"), $filename);
 	

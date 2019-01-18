@@ -32,13 +32,13 @@ class PublicJsonController extends Controller
 			$fb->setDefaultAccessToken("EAAJ04ZAsKP8oBALZBrEz3esv45Ch4pZC8BbfwSrW21oszL7qB5B5DpQezZBt4sulOHx1ofpHH3RNzMtf3Ti8GS6pOmZCvLsmIeYrKJ1aIewNGQUIBxUEWwyvQvoapoenfjTpJb7zKhMUpXo5QV2LUIMMZBOROqO9CNmzgC2rcMbwZDZD");
 			$fbrequest = $fb->request('POST', '/1464752153547049/photos', [
 					"message" => $media->title,
-					"source" => $fb->fileToUpload(public_path("uploads/" . $media->path))
+					"source" => $fb->fileToUpload(public_path($media->path))
 			]);
 			$response = $fb->getClient()->sendRequest($fbrequest)->getGraphNode();
 			$path = "https://graph.facebook.com/" . $response->getField("id", 666834146842093) . "/picture";
 			
 			$fs = new Filesystem();
-			$fs->delete(public_path("uploads/" . $media->path));
+			$fs->delete(public_path($media->path));
 			
 			$media->path = $path;
 			$media->save();
@@ -74,7 +74,7 @@ class PublicJsonController extends Controller
 		}
 		catch(\Exception $e) {*/
 			$path = time() . "-" . $file->getClientOriginalName();
-			$file->move(public_path("uploads"), $path);
+			$file->move(public_path(), $path);
 		//}
 		
 		Media::unguard();
