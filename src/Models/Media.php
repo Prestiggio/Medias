@@ -9,11 +9,11 @@ class Media extends Model
 {
     protected $table = "ry_medias_medias";
 
-    protected $visible = ["title", "descriptif", "type", "id", "contrast", "height", "url", "fullpath", "path"];
+    protected $visible = ["title", "descriptif", "type", "id", "contrast", "height", "url", "fullpath", "path", "basename"];
 
-    protected $appends = ["contrast", "url", "fullpath"];
+    protected $appends = ["contrast", "url", "fullpath", "basename"];
     
-    protected $fillable = ["path", "owner_id", "mediable_type", "title", "mediable_id"];
+    protected $fillable = ["path", "owner_id", "mediable_type", "title", "mediable_id", "descriptif"];
     
     private static $fbAccessToken;
     
@@ -72,5 +72,11 @@ class Media extends Model
     		return $this->path;
     	}
     	return url($this->path);
+    }
+    
+    public function getBasenameAttribute() {
+        if(!$this->descriptif)
+            return basename($this->path);
+        return $this->descriptif;
     }
 }
