@@ -4,6 +4,10 @@ namespace Ry\Medias\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
+use Illuminate\Console\Scheduling\Schedule;
+use Ry\Medias\Models\Media;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class RyServiceProvider extends ServiceProvider
 {
@@ -47,6 +51,19 @@ class RyServiceProvider extends ServiceProvider
     	$this->app->register(\Ry\Socin\Providers\RyServiceProvider::class);
     	
     	$this->map();
+    	
+    	$this->app->booted(function () {
+    	    $schedule = $this->app->make(Schedule::class);
+    	    //delete 2 days old unlinked medias
+    	    $schedule->call(function(){
+    	        $medias = Media::whereMediableId(0)->where("created_at", "<", Carbon::now()->subDay(2))->get();
+    	        foreach($medias as $media) {
+    	            if(Storage::disk(env('PUBLIC_DISK', 'public'))->delete(str_replace('storage/', '', $media->path))) {
+    	                $media->delete();
+    	            }
+    	        }
+    	    })->cron(env('MEDIAS_PURGE', '0 0 * * *'));
+    	});
     }
 
     /**

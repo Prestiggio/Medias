@@ -13,7 +13,7 @@ class Media extends Model
 
     protected $appends = ["contrast", "url", "fullpath", "basename"];
     
-    protected $fillable = ["path", "owner_id", "mediable_type", "title", "mediable_id", "descriptif"];
+    protected $fillable = ["path", "owner_id", "mediable_type", "title", "mediable_id", "descriptif", "height"];
     
     private static $fbAccessToken;
     
