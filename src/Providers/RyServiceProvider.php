@@ -8,6 +8,9 @@ use Illuminate\Console\Scheduling\Schedule;
 use Ry\Medias\Models\Media;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Ry\Medias\Console\Commands\PullEndpointCommand;
+use Ry\Medias\Console\Commands\FileStatusChange;
+use Ry\Medias\Console\Commands\Pull;
 
 class RyServiceProvider extends ServiceProvider
 {
@@ -73,7 +76,16 @@ class RyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->app->singleton("rymedias.ls", function(){
+            return new PullEndpointCommand();
+        });
+        $this->app->singleton("rymedias.status", function(){
+            return new FileStatusChange();
+        });
+        $this->app->singleton("rymedias.pull", function(){
+            return new Pull();
+        });
+        $this->commands(["rymedias.ls", "rymedias.status", "rymedias.pull"]);
     }
     public function map()
     {   
