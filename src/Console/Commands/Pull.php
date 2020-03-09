@@ -42,7 +42,8 @@ class Pull extends Command
         foreach($endpoints as $endpoint) {
             $this->line("export LFTP_PASSWORD='".$endpoint->nsetup['password']."'");
             $commands = $endpoint->nsetup['commands'];
-            foreach($endpoint->files as $file) {
+            $files = $endpoint->files()->where('setup->path', null)->get();
+            foreach($files as $file) {
                 foreach($commands as $command) {
                     $command = str_replace(":filename", $file->filename, $command);
                     $command = str_replace(":id", $file->id, $command);
