@@ -40,7 +40,7 @@ class Pull extends Command
     {
         $endpoints = PullEndpoint::all();
         foreach($endpoints as $endpoint) {
-            $this->line('export LFTP_PASSWORD="'.$endpoint->nsetup['password'].'"');
+            $this->line("export LFTP_PASSWORD='".$endpoint->nsetup['password']."'");
             $commands = $endpoint->nsetup['commands'];
             $files = $endpoint->files()->where('setup->path', null)->get();
             foreach($files as $file) {
