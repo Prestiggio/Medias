@@ -54,7 +54,7 @@ class PullEndpointCommand extends Command
             foreach($ar[1] as $filename) {
                 if(preg_match("/^\.+$/", $filename))
                     continue;
-                if(!$endpoint->files()->whereFilename($filename)->whereAbspath($this->argument('abspath'))->exists()) {
+                if(!$endpoint->files()->where('created_at', '>', Carbon::today()->sub(3, 'month'))->whereFilename($filename)->whereAbspath($this->argument('abspath'))->exists()) {
                     $files[] = [
                         'abspath' => $this->argument('abspath'),
                         'filename' => $filename,

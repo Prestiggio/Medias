@@ -4,6 +4,7 @@ namespace Ry\Medias\Console\Commands;
 
 use Illuminate\Console\Command;
 use Ry\Medias\Models\PullEndpoint;
+use Carbon\Carbon;
 
 class Pull extends Command
 {
@@ -42,7 +43,7 @@ class Pull extends Command
         foreach($endpoints as $endpoint) {
             $this->line("export LFTP_PASSWORD='".$endpoint->nsetup['password']."'");
             $commands = $endpoint->nsetup['commands'];
-            $files = $endpoint->files()->where('setup->path', null)->get();
+            $files = $endpoint->files()->where('created_at', '>', Carbon::today()->sub(3, 'month'))->where('setup->path', null)->get();
             foreach($files as $file) {
                 foreach($commands as $command) {
                     $command = str_replace(":filename", $file->filename, $command);
