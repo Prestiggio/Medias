@@ -1,7 +1,7 @@
 {
-    "name": "ry/medias",
+    "name": "prestiggio/medias",
     "description": "mediabilite laravel5 avec support resize par url et caches",
-    "type": "laravel 5, php",
+    "type": "laravel",
     "authors": [
         {
             "name": "Landr Kotoarivelo",
